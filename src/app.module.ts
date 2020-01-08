@@ -11,18 +11,8 @@ import { connect } from 'http2';
 
 @Module({
   imports: [
-    //TypeOrmModule.forRoot(configService.getTypeOrmConfig())
-    TypeOrmModule.forRootAsync({
-      useFactory: async () => {
-        const connection = await configService.getConnection();
-        return {
-          ...connection
-          ,entities: [__dirname + '/**/*.entity{.ts,.js}']
-          ,synchronize: false
-        };
-      }
-    })
-    ,FormModule
+   
+    FormModule
   ],
   controllers: [AppController],
   providers: [AppService],

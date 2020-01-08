@@ -1,7 +1,7 @@
 // src/config/config.service.ts
 import { TypeOrmModuleOptions } from "@nestjs/typeorm";
 import { Pool } from "pg";
-import { head } from 'lodash';
+import { head } from "lodash";
 require("dotenv").config();
 export interface PostgresQuery {
   sql: string;
@@ -50,7 +50,6 @@ export class ConfigService {
   }
 
   public getTypeOrmConfig(): TypeOrmModuleOptions {
-    
     const foo = this.getConnection().then();
 
     return {
