@@ -1,8 +1,12 @@
 import { MigrationInterface, QueryRunner } from "typeorm";
 
-export class migrationNameHere1578504680760 implements MigrationInterface {
+export class InsertFormsRecord1578532906637 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<any> {
-    await queryRunner.query(`INSERT INTO "blacktie"."forms" (
+    try {
+      const foobar = Math.floor(Math.random() * 10 + 1);
+      await queryRunner.query(`TRUNCATE "blacktie"."forms";`);
+      await queryRunner.query(`DELETE FROM "blacktie"."forms";`);
+      await queryRunner.query(`INSERT INTO "blacktie"."forms" (
             "id",
             "formfamily_id",
             "published_formversion_id",
@@ -20,7 +24,7 @@ export class migrationNameHere1578504680760 implements MigrationInterface {
             '10',
             '1',
             NULL,
-            '01 Test',
+            '${foobar} Test',
             NULL,
             'f',
             '{"lang": "en", "end_date": "", "start_date": "", "campaign_ids": []}',
@@ -29,6 +33,7 @@ export class migrationNameHere1578504680760 implements MigrationInterface {
             NULL,
             '2019-04-10 14:39:24.905'
           );`);
+    } catch (error) {}
   }
 
   public async down(queryRunner: QueryRunner): Promise<any> {}

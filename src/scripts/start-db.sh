@@ -2,7 +2,7 @@
 set -e
 
 SERVER="sandbox_database_server";
-PW="test";
+PW="";
 DB="";
 
 echo "echo stop & remove old docker [$SERVER] and starting new fresh instance of [$SERVER]"
@@ -28,4 +28,14 @@ echo "\l" | docker exec -i $SERVER psql -U postgres
 
 # create the sandbox02 db 
 echo "CREATE DATABASE sandbox02 ENCODING 'UTF-8';" | docker exec -i $SERVER psql -U postgres
+echo "\l" | docker exec -i $SERVER psql -U postgres
+
+echo "CREATE USER sandbox WITH PASSWORD 'sandbox';" | docker exec -i $SERVER psql -U postgres
+echo "\l" | docker exec -i $SERVER psql -U postgres
+
+echo "ALTER USER sandbox WITH SUPERUSER;" | docker exec -i $SERVER psql -U postgres
+echo "\l" | docker exec -i $SERVER psql -U postgres
+
+
+echo "CREATE USER matthewgraf WITH SUPERUSER ;" | docker exec -i $SERVER psql -U postgres
 echo "\l" | docker exec -i $SERVER psql -U postgres

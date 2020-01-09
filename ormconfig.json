@@ -7,7 +7,12 @@
         "password": "sandbox",
         "port": 5432,
         "sslmode": false,
-        "migrations": ["migration/*.ts"]
+        "autoSchemaSync": false,
+        "autoMigrationsRun": true,
+        "migrations": ["src/migration/**/*.ts"],
+        "cli": {
+            "migrationsDir": "src/migration"
+        }
     },
     {
         "name": "sandbox02",
@@ -16,6 +21,13 @@
         "host": "localhost",
         "database": "sandbox02",
         "password": "",
-        "port": 5432
+        "port": 5432,
+        "sslmode": false,
+        "autoSchemaSync": false,
+        "autoMigrationsRun": true,
+        "migrations": ["src/migration/**/*.ts"],
+        "cli": {
+            "migrationsDir": "src/migration"
+        }
     }
 ]
