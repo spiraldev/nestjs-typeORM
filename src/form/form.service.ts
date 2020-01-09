@@ -1,13 +1,20 @@
-import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { FormsEntity } from '../model/item.entity';
-import { Repository } from 'typeorm';
+import { Injectable, Inject } from "@nestjs/common";
+import { Repository, getManager } from "typeorm";
+import { FormsEntity } from "../model/form.entity";
+import { REQUEST } from "@nestjs/core";
+import { DatabaseMiddleware } from "../DatabaseMiddleware";
 
 @Injectable()
 export class FormService {
-  constructor(@InjectRepository(FormsEntity) private readonly repo: Repository<FormsEntity>) { }
+  private repository: Repository<FormsEntity>;
 
-  public async getAll() {
-    return await this.repo.find();
+  constructor(@Inject(REQUEST) private readonly request) {
+    this.repository = getManager(
+      this.request.headers[DatabaseMiddleware.COMPANY_NAME]
+    ).getRepository(FormsEntity);
+  }
+
+  async findOne(): Promise<any> {
+    return await this.repository.find();
   }
 }

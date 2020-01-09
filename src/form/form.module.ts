@@ -3,10 +3,10 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { FormService } from './form.service';
 import { FormController } from './form.controller';
-import { FormsEntity } from '../model/item.entity';
-
+// import { FormsEntity } from '../model/form.entity';
+//TypeOrmModule.forFeature([FormsEntity])
 @Module({
-  imports: [TypeOrmModule.forFeature([FormsEntity])],
+  imports: [],
   providers: [FormService],
   controllers: [FormController],
   exports: []

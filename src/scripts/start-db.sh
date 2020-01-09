@@ -1,9 +1,9 @@
 #!/bin/bash
 set -e
 
-SERVER="my_database_server";
-PW="mysecretpassword";
-DB="my_database";
+SERVER="sandbox_database_server";
+PW="";
+DB="";
 
 echo "echo stop & remove old docker [$SERVER] and starting new fresh instance of [$SERVER]"
 (docker kill $SERVER || :) && \
@@ -17,6 +17,25 @@ echo "echo stop & remove old docker [$SERVER] and starting new fresh instance of
 echo "sleep wait for pg-server [$SERVER] to start";
 SLEEP 3;
 
-# create the db 
-echo "CREATE DATABASE $DB ENCODING 'UTF-8';" | docker exec -i $SERVER psql -U postgres
+
+# create the sandbox01 db 
+echo "CREATE DATABASE tenant ENCODING 'UTF-8';" | docker exec -i $SERVER psql -U postgres
+echo "\l" | docker exec -i $SERVER psql -U postgres
+
+# create the sandbox01 db 
+echo "CREATE DATABASE sandbox01 ENCODING 'UTF-8';" | docker exec -i $SERVER psql -U postgres
+echo "\l" | docker exec -i $SERVER psql -U postgres
+
+# create the sandbox02 db 
+echo "CREATE DATABASE sandbox02 ENCODING 'UTF-8';" | docker exec -i $SERVER psql -U postgres
+echo "\l" | docker exec -i $SERVER psql -U postgres
+
+echo "CREATE USER sandbox WITH PASSWORD 'sandbox';" | docker exec -i $SERVER psql -U postgres
+echo "\l" | docker exec -i $SERVER psql -U postgres
+
+echo "ALTER USER sandbox WITH SUPERUSER;" | docker exec -i $SERVER psql -U postgres
+echo "\l" | docker exec -i $SERVER psql -U postgres
+
+
+echo "CREATE USER matthewgraf WITH SUPERUSER ;" | docker exec -i $SERVER psql -U postgres
 echo "\l" | docker exec -i $SERVER psql -U postgres
